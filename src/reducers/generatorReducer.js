@@ -1,5 +1,6 @@
 const initialState = {
-	ones: 0
+	ones: 0,
+	purchase_amount: 1
 }
 
 const generatorReducer = (state = initialState, action) => {
@@ -10,6 +11,8 @@ const generatorReducer = (state = initialState, action) => {
 			console.log(newState)
 			return newState
 			break
+		case 'UPDATE_PURCHASE_AMOUNT':
+			return {...state, purchase_amount: action.value}
 		default:
 			break
 	}
@@ -21,6 +24,13 @@ export const updateGenerator = (target, value) => {
 		type: 'UPDATE_GENERATOR',
 		target: target,
 		value: value
+	})
+}
+
+export const updatePurchaseAmount = (value) => {
+	return ({
+		type: 'UPDATE_PURCHASE_AMOUNT',
+		value
 	})
 }
 

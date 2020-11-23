@@ -1,0 +1,20 @@
+#buy-amount-button-container {
+
+}
+
+.horizontal-centered {
+	display: block;
+	margin-left: auto;
+  margin-right: auto;
+	width: 20%
+}
+
+.buy-amount-button {
+	background: #6495ED;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+	width: 25%
+}
+
