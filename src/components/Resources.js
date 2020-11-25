@@ -5,24 +5,28 @@ import { updateResource } from '../reducers/resourceReducer'
 import { updateTime } from '../reducers/timeReducer'
 import ReactInterval from 'react-interval'
 
-
+import './Resources.css'
 
 const Generator = () => {
 	const dispatch = useDispatch()
 	const resources = useSelector(state => state.resources)
+	const goldPerSecond = useSelector(state => state.generators).gold_per_second
 	const time = useSelector(state => state.time.time_factor)
-	const increaseOne = () => {
-		dispatch(updateResource('gold', 1))
+	const increaseByGenerators = () => {
+		console.log(goldPerSecond)
+		dispatch(updateResource('gold', goldPerSecond))
 	}
 	
 	
 	
 	return (
-		<div>
-			Gold: {resources.gold}
-			<button onClick = {() => dispatch(updateResource('gold', 1))}> Plus One </button>
+		<div id='resources-container' className='horizontal-centered'>
+			<div id='gold-container'>
+				<p> Gold: {resources.gold} </p>
+				<p> GPS: {goldPerSecond} </p>
+			</div>
 			<ReactInterval timeout={time} enabled={true}
-				callback={increaseOne} />
+				callback={increaseByGenerators} />
 		</div>
 	)
 }

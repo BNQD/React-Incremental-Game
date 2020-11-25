@@ -6,3 +6,10 @@
 	left: 0;
 	background-color: #92a8d1;
 }
+
+.horizontal-centered {
+	display: block;
+	margin-left: auto;
+  margin-right: auto;
+	width: 20%
+}

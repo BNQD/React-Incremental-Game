@@ -12,57 +12,83 @@ const BuyGeneratorButtons = () => {
 	
 	const buyAmount = generators.purchase_amount
 	
-	const genOneTotalCost = (type, amount) => {
-		const current_gen_num = generators.ones
-		const genOneCost = (number) => {
-			return Math.pow(10, 1+0.05*number)
+	const genTotalCost = (type, amount) => {
+		switch (type){
+			case 'ones':
+				const current_gen_num = generators[type]
+				const genOneCost = (number) => {
+					return Math.pow(10, 1+0.05*number)
+				}
+				if (amount === 1){
+					return Math.round(genOneCost(current_gen_num))
+				} else {
+					return Math.round([...Array(amount).keys()].map(x => genOneCost(x+current_gen_num)).reduce((total, x) => total + x))
+				}
+			case 2:
+				break
+			case 3:
+				break
+			case 4:
+				break
+			case 5:
+				break
+			default:
+				console.error('No Gen Match for genTotalCost')
 		}
-		if (amount === 1){
-			return Math.round(genOneCost(current_gen_num))
-		} else {
-			return Math.round([...Array(amount).keys()].map(x => genOneCost(x+current_gen_num)).reduce((total, x) => total + x))
-		}
+		
 	}
 	
-	const increaseGenerator = (type, amount) => {	
-		if (type === 1) {
-			const gen_total_cost = genOneTotalCost(type, amount)
-			console.log(gen_total_cost)
-			if (resources.gold >= gen_total_cost){
-				console.log('Buying')
-				dispatch(updateResource('gold', -gen_total_cost))
-				dispatch(updateGenerator('ones', generators.ones+amount))
+	const increaseGenerator = (type) => {	
+		const gen_total_cost = genTotalCost(type, buyAmount)
+		if (resources.gold >= gen_total_cost){
+			switch (type) {
+				case 'ones':
+					dispatch(updateResource('gold', -gen_total_cost))
+					dispatch(updateGenerator('ones', generators.ones+buyAmount))
+					break
+				case 2:
+					break
+				case 3:
+					break
+				case 4:
+					break
+				case 5:
+					break
+				default:
+					console.error('No gen match for increaseGenerator')
 			}
+		} else {
+			console.log('Not enough gold')
 		}
 		
 	}
 	
 	return (
 		<>
-		<button className='genPurchaseButton' onClick = {() => increaseGenerator(1, buyAmount)}>
+		<button className='genPurchaseButton' onClick = {() => increaseGenerator('ones', buyAmount)}>
 			Buy {buyAmount} Generator ({generators.ones})
 			<br/>
-			Cost: {genOneTotalCost(1, buyAmount)}
+			Cost: {genTotalCost('ones', buyAmount)}
 		</button>
-		<button className='genPurchaseButton' onClick = {() => increaseGenerator(1, buyAmount)}>
+		<button className='genPurchaseButton' onClick = {() => increaseGenerator(2, buyAmount)}>
 			Buy {buyAmount} Generator ({generators.ones})
 			<br/>
-			Cost: {genOneTotalCost(1, buyAmount)}
+			Cost: {genTotalCost(2, buyAmount)}
 		</button>
-		<button className='genPurchaseButton' onClick = {() => increaseGenerator(1, buyAmount)}>
+		<button className='genPurchaseButton' onClick = {() => increaseGenerator(3, buyAmount)}>
 			Buy {buyAmount} Generator ({generators.ones})
 			<br/>
-			Cost: {genOneTotalCost(1, buyAmount)}
+			Cost: {genTotalCost(3, buyAmount)}
 		</button>
-		<button className='genPurchaseButton' onClick = {() => increaseGenerator(1, buyAmount)}>
+		<button className='genPurchaseButton' onClick = {() => increaseGenerator(4, buyAmount)}>
 			Buy {buyAmount} Generator ({generators.ones})
 			<br/>
-			Cost: {genOneTotalCost(1, buyAmount)}
+			Cost: {genTotalCost(4, buyAmount)}
 		</button>
-		<button className='genPurchaseButton' onClick = {() => increaseGenerator(1, buyAmount)}>
+		<button className='genPurchaseButton' onClick = {() => increaseGenerator(5, buyAmount)}>
 			Buy {buyAmount} Generator ({generators.ones})
 			<br/>
-			Cost: {genOneTotalCost(1, buyAmount)}
+			Cost: {genTotalCost(5, buyAmount)}
 		</button>
 		</>
 	)

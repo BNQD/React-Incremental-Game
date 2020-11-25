@@ -1,14 +1,19 @@
 const initialState = {
 	ones: 0,
-	purchase_amount: 1
+	purchase_amount: 1,
+	gold_per_second: 0
+}
+
+const updatePerSecond = (state) => {
+	return (state.ones)
 }
 
 const generatorReducer = (state = initialState, action) => {
   switch (action.type) {
 		case 'UPDATE_GENERATOR':
 			const newState = {...state}
-			newState[action.target] = newState[action.target] + action.value
-			console.log(newState)
+			newState[action.target] = action.value
+			newState.gold_per_second = updatePerSecond(newState)
 			return newState
 			break
 		case 'UPDATE_PURCHASE_AMOUNT':
